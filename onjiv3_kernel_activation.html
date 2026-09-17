@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONJIV3 - Kernel Activation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom subtle glassmorphism and glows */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(14, 165, 233, 0.25);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 20px 2px rgba(14, 165, 233, 0.4);
+        }
+        /* Custom scrollbar for selects */
+        select option {
+            background-color: #111827;
+            color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Decorator Elements -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-sky-500/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-10 right-10 w-[300px] h-[300px] bg-indigo-500/10 rounded-full blur-[100px]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 flex-1 flex flex-col justify-center items-center px-4 py-12">
+        <div class="w-full max-w-md">
+
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <!-- Main Bold Title -->
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-3">
+                    ONJIV<span class="text-sky-400">3</span>
+                </h1>
+                
+                <!-- Subtitle / Tag Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 shadow-inner">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-xs font-medium text-slate-300">Kernel Activation</span>
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">$5 Tag</span>
+                </div>
+            </div>
+
+            <!-- Activation Card -->
+            <div class="glass-card rounded-2xl p-6 md:p-8 shadow-2xl relative glow-effect">
+                <form id="kernelForm" class="space-y-6" onsubmit="handleActivation(event)">
+                    
+                    <!-- Phone Input Section -->
+                    <div>
+                        <label for="phoneNumber" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                            Mobile Phone Number <span class="text-sky-400">*</span>
+                        </label>
+                        <div class="flex rounded-xl shadow-sm border border-slate-800 bg-slate-900/80 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 transition-all duration-200 overflow-hidden">
+                            <!-- Country Code Dropdown -->
+                            <select id="countryCode" class="bg-slate-800/60 text-slate-200 text-sm font-mono px-3 py-3 border-r border-slate-800 focus:outline-none cursor-pointer hover:bg-slate-800 transition-colors">
+                                <option value="+1">🇺🇸 +1 (US/CA)</option>
+                                <option value="+44">🇬🇧 +44 (UK)</option>
+                                <option value="+254">🇰🇪 +254 (KE)</option>
+                                <option value="+91">🇮🇳 +91 (IN)</option>
+                                <option value="+49">🇩🇪 +49 (DE)</option>
+                                <option value="+33">🇫🇷 +33 (FR)</option>
+                                <option value="+61">🇦🇺 +61 (AU)</option>
+                                <option value="+81">🇯🇵 +81 (JP)</option>
+                                <option value="+234">🇳🇬 +234 (NG)</option>
+                                <option value="+971">🇦🇪 +971 (AE)</option>
+                            </select>
+                            
+                            <!-- Phone Number Input -->
+                            <input 
+                                type="tel" 
+                                id="phoneNumber" 
+                                required 
+                                placeholder="800 555 0199" 
+                                class="w-full bg-transparent px-4 py-3 text-white placeholder-slate-500 text-sm font-mono focus:outline-none"
+                            >
+                        </div>
+                        <p class="mt-1.5 text-xs text-slate-500">Security code will be dispatched to this device.</p>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="border-t border-slate-800/80 my-4"></div>
+
+                    <!-- Checkboxes Section -->
+                    <div class="space-y-3.5">
+                        <!-- Checkbox 1: Terms -->
+                        <label class="flex items-start gap-3 group cursor-pointer">
+                            <div class="relative flex items-center pt-0.5">
+                                <input 
+                                    type="checkbox" 
+                                    id="agreeTerms" 
+                                    required 
+                                    class="w-4 h-4 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500/30 focus:ring-offset-0 transition-colors cursor-pointer"
+                                >
+                            </div>
+                            <span class="text-xs text-slate-300 leading-relaxed group-hover:text-slate-100 transition-colors">
+                                I accept the <a href="#" class="text-sky-400 hover:underline">User Agreement</a>, Kernel Terms of Service, and Automated Protocol Guidelines.
+                            </span>
+                        </label>
+
+                        <!-- Checkbox 2: Information Confirmation -->
+                        <label class="flex items-start gap-3 group cursor-pointer">
+                            <div class="relative flex items-center pt-0.5">
+                                <input 
+                                    type="checkbox" 
+                                    id="confirmInfo" 
+                                    required 
+                                    class="w-4 h-4 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500/30 focus:ring-offset-0 transition-colors cursor-pointer"
+                                >
+                            </div>
+                            <span class="text-xs text-slate-300 leading-relaxed group-hover:text-slate-100 transition-colors">
+                                I confirm that all provided information is accurate and that I am authorized to register this device tag.
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-2">
+                        <button 
+                            type="submit" 
+                            id="validateBtn" 
+                            class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-500 to-brand-600 hover:from-sky-400 hover:to-brand-500 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/20 glow-button active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2 group"
+                        >
+                            <i data-lucide="shield-check" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+                            <span id="btnText">Validate Kernel</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Status Notification Area -->
+            <div id="statusMessage" class="hidden mt-4 p-4 rounded-xl border text-xs font-mono transition-all duration-300 animate-in fade-in slide-in-from-top-2"></div>
+
+            <!-- Footer info -->
+            <div class="text-center mt-6 text-slate-500 text-xs flex items-center justify-center gap-4">
+                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> 256-Bit Encrypted</span>
+                <span>•</span>
+                <span>Version 3.4.0</span>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        function handleActivation(event) {
+            event.preventDefault();
+
+            const btn = document.getElementById('validateBtn');
+            const btnText = document.getElementById('btnText');
+            const phone = document.getElementById('phoneNumber').value.trim();
+            const country = document.getElementById('countryCode').value;
+            const statusMessage = document.getElementById('statusMessage');
+
+            // Set Loading state
+            btn.disabled = true;
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            btnText.innerHTML = `<span class="inline-block animate-spin mr-2">⚙️</span> Validating $5 Kernel...`;
+            statusMessage.classList.add('hidden');
+
+            // Simulate Kernel validation API call
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                btnText.innerHTML = 'Validate Kernel';
+
+                // Display success prompt box
+                statusMessage.className = "mt-4 p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-mono flex items-start gap-2 block";
+                statusMessage.innerHTML = `
+                    <i data-lucide="check-circle-2" class="w-4 h-4 shrink-0 text-emerald-400 mt-0.5"></i>
+                    <div>
+                        <p class="font-bold">Kernel Validation Successful!</p>
+                        <p class="text-emerald-300/80 mt-0.5">Dispatched activation token to <strong>${country} ${phone}</strong>. $5 activation tag registered.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+            }, 1800);
+        }
+    </script>
+</body>
+</html>
